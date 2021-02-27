@@ -58,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
 		this.sensorClass = new SensorClass();
 		this.sensorClass.start();
 
+
+		// Read External Storage permission check
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 11);
+		}
+
 	}
 
 	@Override
