@@ -30,7 +30,6 @@ public class WordClass {
             Log.e("Main", "Error is " + e.toString());
         }
 
-
         // Read the words from the foreign file and store them in an array list
         try {
             BufferedReader br2 = new BufferedReader(new InputStreamReader(context.getAssets().open(foreign)));
@@ -88,7 +87,7 @@ public class WordClass {
         return returnWords;
     }
 
-    private class Position {
+    private static class Position {
         int x;
         int y;
 

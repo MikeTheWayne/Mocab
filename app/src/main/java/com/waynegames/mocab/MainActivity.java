@@ -12,11 +12,15 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +35,12 @@ public class MainActivity extends AppCompatActivity {
 
 	private static Word[] words;
 	private WordClass wordClass;
+
+	private Timer timer;
+	private int score;
+	private int timePassed;
+
+	private TextView textView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +85,21 @@ public class MainActivity extends AppCompatActivity {
 
 		// Word surfaceview
 		this.wordView = findViewById(R.id.word_view);
+
+		// Score calculation timer
+		this.score = 0;
+		this.timePassed = 0;
+
+		this.timer = new Timer();
+		this.timer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				timePassed++;
+			}
+		}, 0, 1);
+
+		textView = findViewById(R.id.scoreText);
+		textView.setText("0");
 
 	}
 
@@ -166,6 +191,10 @@ public class MainActivity extends AppCompatActivity {
 				if(compWord == w) {
 					// Correct, hide
 					w.setShow(false);
+
+					// Update score
+					score += (int) (Math.exp(-((timePassed / 1000f) / 40f - 6.8f)) + 100);
+					textView.setText(score + "");
 				} else{
 					// Incorrect
 					wordView.setIncorrectTime(1.0f);
