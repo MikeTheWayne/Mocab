@@ -15,6 +15,7 @@ public class WordView extends SurfaceView {
 		super(context, attributeSet);
 
 		this.setWillNotDraw(false);
+		// Setup transparent background
 		this.setBackgroundColor(Color.TRANSPARENT);
 		this.setZOrderOnTop(true);
 
