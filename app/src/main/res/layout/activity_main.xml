@@ -6,8 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <FrameLayout
+        android:id="@+id/camera_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
     <com.waynegames.mocab.WordView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
