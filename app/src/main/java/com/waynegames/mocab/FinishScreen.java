@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class FinishScreen extends AppCompatActivity {
 
     private TextView mTextView;
+    static int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,13 +19,15 @@ public class FinishScreen extends AppCompatActivity {
         setContentView(R.layout.activity_finish_screen);
 
         Button button = findViewById(R.id.button4);
+        TextView scoreText = findViewById(R.id.textView2);
+
+        scoreText.setText(score + "");
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(FinishScreen.this, MainMenu.class);
                 startActivity(intent);
-
             }
         });
 

@@ -195,11 +195,34 @@ public class MainActivity extends AppCompatActivity {
 					// Update score
 					score += (int) (Math.exp(-((timePassed / 1000f) / 40f - 6.8f)) + 100);
 					textView.setText(score + "");
+
+					checkGameEnd();
 				} else{
 					// Incorrect
 					wordView.setIncorrectTime(1.0f);
 				}
 			}
+		}
+	}
+
+	private void checkGameEnd() {
+		int total = 0;
+
+		for(Word w : words) {
+			if(!w.isShow()) {
+				total++;
+			}
+		}
+
+		if(total == 10) {
+			FinishScreen.score = this.score;
+
+			timer.cancel();
+
+			Intent i = new Intent(MainActivity.this, FinishScreen.class);
+			startActivity(i);
+
+			finish();
 		}
 	}
 
