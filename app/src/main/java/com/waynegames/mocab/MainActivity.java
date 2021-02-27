@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
 	private Sensor rotationSensor;
 
 	private SensorClass sensorClass;
+	private WordView wordView;
+
+	private static Word[] words;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
 			// Create our Preview view and set it as the content of our activity.
 			preview = new CameraPreview(this, camera);
+
 			FrameLayout frameLayout = findViewById(R.id.camera_preview);
 			frameLayout.addView(preview);
 
@@ -57,6 +61,17 @@ public class MainActivity extends AppCompatActivity {
 
 		this.sensorClass = new SensorClass();
 		this.sensorClass.start();
+
+		// Word generation
+		words = new Word[10];
+
+		// Default generation TODO: Replace with word generator call
+		for(int i = 0; i < 10; i++) {
+			words[i] = new Word("Hello", "Hola");
+		}
+
+		// Word surfaceview
+		this.wordView = findViewById(R.id.word_view);
 
 	}
 
@@ -128,11 +143,16 @@ public class MainActivity extends AppCompatActivity {
 			float xDeg = (float) (57.2598 * Math.acos(rotMatrix[0]) * ((rotMatrix[2] < 0) ? 1 : -1)) + 180;
 			float yDeg = (float) (57.2598 * Math.acos(rotMatrix[5]));
 
-			System.out.println(xDeg + " " + yDeg);
-
+			// Update camera position and redraw words
+			wordView.setCam(xDeg, yDeg);
+			wordView.invalidate();
 		}
 
 		@Override
 		public void onAccuracyChanged(Sensor sensor, int i) { }
+	}
+
+	public static Word[] getWords() {
+		return words;
 	}
 }

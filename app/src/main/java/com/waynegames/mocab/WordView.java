@@ -11,6 +11,9 @@ public class WordView extends SurfaceView {
 
 	private Paint paint;
 
+	private float camX;
+	private float camY;
+
 	public WordView(Context context, AttributeSet attributeSet) {
 		super(context, attributeSet);
 
@@ -20,15 +23,28 @@ public class WordView extends SurfaceView {
 		this.setZOrderOnTop(true);
 
 		this.paint = new Paint();
+		this.camX = 0;
+		this.camY = 0;
 
 	}
 
 	public void onDraw(Canvas canvas) {
 
+		// Set word drawing style
 		paint.setTextSize(100);
 		paint.setARGB(255, 255, 255, 255);
-		canvas.drawText("Hola", 100, 100, paint);
 
+		// Draw words
+		for(Word w : MainActivity.getWords()) {
+			canvas.drawText(w.getEnglish(), w.getEngX(getWidth()) - camX, -w.getEngY(getHeight()) + camY, paint);
+			canvas.drawText(w.getTranslation(), w.getTrnX(getWidth()) - camX, -w.getTrnY(getHeight()) + camY, paint);
+		}
+
+	}
+
+	public void setCam(float degX, float degY) {
+		this.camX = 4 * getWidth() * (degX / 360f);
+		this.camY = 2 * getHeight() * (degY / 180f);
 	}
 
 }
