@@ -11,6 +11,7 @@ public class Word {
 	private int trnX, trnY;
 
 	private boolean engSelect, trnSelect;
+	private boolean show;
 
 	public Word(String english, String translation) {
 		this.english = english;
@@ -18,6 +19,7 @@ public class Word {
 
 		this.engSelect = false;
 		this.trnSelect = false;
+		this.show = true;
 
 		this.generatePositions();
 	}
@@ -90,5 +92,13 @@ public class Word {
 
 	public void setTrnSelect(boolean trnSelect) {
 		this.trnSelect = trnSelect;
+	}
+
+	public boolean isShow() {
+		return show;
+	}
+
+	public void setShow(boolean show) {
+		this.show = show;
 	}
 }

@@ -36,19 +36,23 @@ public class WordView extends SurfaceView {
 
 		// Draw words
 		for(Word w : MainActivity.getWords()) {
-			if(w.isEngSelect()) {
-				paint.setARGB(255, 225, 192, 55);
-			} else{
-				paint.setARGB(255, 255, 255, 255);
-			}
-			canvas.drawText(w.getEnglish(), w.getEngX(getWidth()) - camX, -w.getEngY(getHeight()) + camY, paint);
 
-			if(w.isTrnSelect()) {
-				paint.setARGB(255, 225, 192, 55);
-			} else{
-				paint.setARGB(255, 255, 255, 255);
+			if(w.isShow()) {
+
+				if (w.isEngSelect()) {
+					paint.setARGB(255, 225, 192, 55);
+				} else {
+					paint.setARGB(255, 255, 255, 255);
+				}
+				canvas.drawText(w.getEnglish(), w.getEngX(getWidth()) - camX, -w.getEngY(getHeight()) + camY, paint);
+
+				if (w.isTrnSelect()) {
+					paint.setARGB(255, 225, 192, 55);
+				} else {
+					paint.setARGB(255, 255, 255, 255);
+				}
+				canvas.drawText(w.getTranslation(), w.getTrnX(getWidth()) - camX, -w.getTrnY(getHeight()) + camY, paint);
 			}
-			canvas.drawText(w.getTranslation(), w.getTrnX(getWidth()) - camX, -w.getTrnY(getHeight()) + camY, paint);
 		}
 
 	}

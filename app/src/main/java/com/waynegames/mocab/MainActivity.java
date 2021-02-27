@@ -89,15 +89,83 @@ public class MainActivity extends AppCompatActivity {
 			for(Word w : words) {
 
 				if(Math.abs(tX - (w.getEngX(this.wordView.getWidth()) - wordView.getCamX())) < 250 && Math.abs(tY - (-w.getEngY(this.wordView.getHeight()) + wordView.getCamY())) < 250) {
-					w.setEngSelect(true);
+
+					// Check if another word is selected, then check if it is the correct translation
+					if(isWordSelected()) {
+						checkWords(w);
+						// Deselect all other words
+						deselectAllWords();
+					} else{
+						// Deselect all other words
+						deselectAllWords();
+						// Select word
+						w.setEngSelect(true);
+					}
+
 				} else if(Math.abs(tX - (w.getTrnX(this.wordView.getWidth()) - wordView.getCamX())) < 250 && Math.abs(tY - (-w.getTrnY(this.wordView.getHeight()) + wordView.getCamY())) < 250) {
-					w.setTrnSelect(true);
+
+					// Check if another word is selected, then check if it is the correct translation
+					if(isWordSelected()) {
+						checkWords(w);
+						// Deselect all other words
+						deselectAllWords();
+					} else{
+						// Deselect all other words
+						deselectAllWords();
+						// Select word
+						w.setTrnSelect(true);
+					}
 				}
+
 			}
 
 		}
 
 		return super.onTouchEvent(event);
+	}
+
+	/**
+	 * Deselects all words
+	 */
+	private void deselectAllWords() {
+		for(Word w : words) {
+			w.setEngSelect(false);
+			w.setTrnSelect(false);
+		}
+	}
+
+	/**
+	 * Checks if a word has already been selected
+	 *
+	 * @return
+	 * 		True if a word is selected
+	 */
+	private boolean isWordSelected() {
+		for(Word w : words) {
+			if(w.isTrnSelect() || w.isEngSelect()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Check the correct word pair has been selected by the user, then perform an action if it is correct or not
+	 *
+	 * @param compWord
+	 * 		Last selected word, to be compared
+	 */
+	private void checkWords(Word compWord) {
+		for(Word w : words) {
+			if(w.isEngSelect() || w.isTrnSelect()) {
+				if(compWord == w) {
+					// Correct, hide
+					w.setShow(false);
+				} else{
+					// Incorrect
+				}
+			}
+		}
 	}
 
 	@Override
