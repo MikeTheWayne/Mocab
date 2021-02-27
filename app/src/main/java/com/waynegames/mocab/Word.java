@@ -10,9 +10,14 @@ public class Word {
 	private int engX, engY;
 	private int trnX, trnY;
 
+	private boolean engSelect, trnSelect;
+
 	public Word(String english, String translation) {
 		this.english = english;
 		this.translation = translation;
+
+		this.engSelect = false;
+		this.trnSelect = false;
 
 		this.generatePositions();
 	}
@@ -71,4 +76,19 @@ public class Word {
 		return (int) (2 * height * (trnY / 180f));
 	}
 
+	public boolean isEngSelect() {
+		return engSelect;
+	}
+
+	public boolean isTrnSelect() {
+		return trnSelect;
+	}
+
+	public void setEngSelect(boolean engSelect) {
+		this.engSelect = engSelect;
+	}
+
+	public void setTrnSelect(boolean trnSelect) {
+		this.trnSelect = trnSelect;
+	}
 }

@@ -1,21 +1,21 @@
 package com.waynegames.mocab;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
-import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.widget.FrameLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,6 +75,28 @@ public class MainActivity extends AppCompatActivity {
 		// Word surfaceview
 		this.wordView = findViewById(R.id.word_view);
 
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+
+		float tX = event.getX();
+		float tY = event.getY();
+
+		if(event.getAction() == MotionEvent.ACTION_DOWN) {
+
+			for(Word w : words) {
+
+				if(Math.abs(tX - (w.getEngX(this.wordView.getWidth()) - wordView.getCamX())) < 250 && Math.abs(tY - (-w.getEngY(this.wordView.getHeight()) + wordView.getCamY())) < 250) {
+					w.setEngSelect(true);
+				} else if(Math.abs(tX - (w.getTrnX(this.wordView.getWidth()) - wordView.getCamX())) < 250 && Math.abs(tY - (-w.getTrnY(this.wordView.getHeight()) + wordView.getCamY())) < 250) {
+					w.setTrnSelect(true);
+				}
+			}
+
+		}
+
+		return super.onTouchEvent(event);
 	}
 
 	@Override
