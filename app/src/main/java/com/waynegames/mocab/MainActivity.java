@@ -88,11 +88,11 @@ public class MainActivity extends AppCompatActivity {
 
 			for(Word w : words) {
 
-				if(Math.abs(tX - (w.getEngX(this.wordView.getWidth()) - wordView.getCamX())) < 250 && Math.abs(tY - (-w.getEngY(this.wordView.getHeight()) + wordView.getCamY())) < 250) {
+				if(Math.abs(tX - (w.getEngX(this.wordView.getWidth()) - wordView.getCamX())) < 250 && Math.abs(tY - (-w.getEngY(this.wordView.getHeight()) + wordView.getCamY())) < 75) {
 
 					// Check if another word is selected, then check if it is the correct translation
 					if(isWordSelected()) {
-						checkWords(w);
+						checkWords(w, true);
 						// Deselect all other words
 						deselectAllWords();
 					} else{
@@ -102,11 +102,13 @@ public class MainActivity extends AppCompatActivity {
 						w.setEngSelect(true);
 					}
 
-				} else if(Math.abs(tX - (w.getTrnX(this.wordView.getWidth()) - wordView.getCamX())) < 250 && Math.abs(tY - (-w.getTrnY(this.wordView.getHeight()) + wordView.getCamY())) < 250) {
+					break;
+
+				} else if(Math.abs(tX - (w.getTrnX(this.wordView.getWidth()) - wordView.getCamX())) < 250 && Math.abs(tY - (-w.getTrnY(this.wordView.getHeight()) + wordView.getCamY())) < 75) {
 
 					// Check if another word is selected, then check if it is the correct translation
 					if(isWordSelected()) {
-						checkWords(w);
+						checkWords(w, false);
 						// Deselect all other words
 						deselectAllWords();
 					} else{
@@ -115,6 +117,9 @@ public class MainActivity extends AppCompatActivity {
 						// Select word
 						w.setTrnSelect(true);
 					}
+
+					break;
+
 				}
 
 			}
@@ -155,9 +160,9 @@ public class MainActivity extends AppCompatActivity {
 	 * @param compWord
 	 * 		Last selected word, to be compared
 	 */
-	private void checkWords(Word compWord) {
+	private void checkWords(Word compWord, boolean eng) {
 		for(Word w : words) {
-			if(w.isEngSelect() || w.isTrnSelect()) {
+			if((w.isEngSelect() && !eng) || (w.isTrnSelect() && eng)) {
 				if(compWord == w) {
 					// Correct, hide
 					w.setShow(false);
@@ -235,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
 
 			// Convert sensor values to x(0 - 360) y(0 - 180) degree values
 			float xDeg = (float) (57.2598 * Math.acos(rotMatrix[0]) * ((rotMatrix[2] < 0) ? 1 : -1)) + 180;
-			float yDeg = (float) (57.2598 * Math.acos(rotMatrix[5]));
+			float yDeg = (float) (57.2598 * Math.acos(rotMatrix[10]));
 
 			// Update camera position and redraw words
 			wordView.setCam(xDeg, yDeg);

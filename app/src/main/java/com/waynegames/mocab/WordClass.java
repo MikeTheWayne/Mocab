@@ -61,8 +61,8 @@ public class WordClass {
         // Generate positions
         ArrayList<Position> positions = new ArrayList<Position>();
 
-        for(int i = 5; i < 355; i += 5) {
-            for(int j = 25; j < 130; j += 5) {
+        for(int i = 65; i < 295; i += 5) {
+            for(int j = -20; j < 80; j += 5) {
                 positions.add(new Position(i, j));
             }
         }
@@ -82,7 +82,7 @@ public class WordClass {
 
             // Remove repeats
             positions.remove(engPos);
-            positions.remove(trnPos);
+            positions.remove((trnPos < engPos) ? trnPos : trnPos - 1);
         }
 
         return returnWords;

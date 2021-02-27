@@ -52,7 +52,7 @@ public class Word {
 	}
 
 	public int getEngX(int width) {
-		return (int) (4 * width * (engX / 360f));
+		return (int) (6 * width * (engX / 360f));
 	}
 
 	public int getEngY(int height) {
@@ -60,7 +60,7 @@ public class Word {
 	}
 
 	public int getTrnX(int width) {
-		return (int) (4 * width * (trnX / 360f));
+		return (int) (6 * width * (trnX / 360f));
 	}
 
 	public int getTrnY(int height) {

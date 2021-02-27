@@ -47,14 +47,14 @@ public class WordView extends SurfaceView {
 				} else {
 					paint.setARGB(255, 255, 255, 255);
 				}
-				canvas.drawText(w.getEnglish(), w.getEngX(getWidth()) - camX, -w.getEngY(getHeight()) + camY, paint);
+				canvas.drawText(w.getEnglish(), w.getEngX(getWidth()) - camX - paint.measureText(w.getEnglish()) / 2, -w.getEngY(getHeight()) + camY - 200, paint);
 
 				if (w.isTrnSelect()) {
 					paint.setARGB(255, 225, 192, 55);
 				} else {
 					paint.setARGB(255, 255, 255, 255);
 				}
-				canvas.drawText(w.getTranslation(), w.getTrnX(getWidth()) - camX, -w.getTrnY(getHeight()) + camY, paint);
+				canvas.drawText(w.getTranslation(), w.getTrnX(getWidth()) - camX - paint.measureText(w.getEnglish()) / 2, -w.getTrnY(getHeight()) + camY - 200, paint);
 			}
 		}
 
@@ -70,7 +70,7 @@ public class WordView extends SurfaceView {
 	}
 
 	public void setCam(float degX, float degY) {
-		this.camX = 4 * getWidth() * (degX / 360f);
+		this.camX = 6 * getWidth() * (degX / 360f);
 		this.camY = 2 * getHeight() * (degY / 180f);
 	}
 
