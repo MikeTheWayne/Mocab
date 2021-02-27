@@ -17,7 +17,6 @@ public class FinishScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finish_screen);
 
-
         Button button = findViewById(R.id.button4);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -28,5 +27,6 @@ public class FinishScreen extends AppCompatActivity {
 
             }
         });
+
     }
 }
