@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
 					w.setShow(false);
 				} else{
 					// Incorrect
+					wordView.setIncorrectTime(1.0f);
 				}
 			}
 		}

@@ -14,6 +14,8 @@ public class WordView extends SurfaceView {
 	private float camX;
 	private float camY;
 
+	private float incorrectTime;
+
 	public WordView(Context context, AttributeSet attributeSet) {
 		super(context, attributeSet);
 
@@ -25,6 +27,7 @@ public class WordView extends SurfaceView {
 		this.paint = new Paint();
 		this.camX = 0;
 		this.camY = 0;
+		this.incorrectTime = 0;
 
 	}
 
@@ -55,6 +58,15 @@ public class WordView extends SurfaceView {
 			}
 		}
 
+		// Draw incorrect overlay
+		if(incorrectTime > 0) {
+			paint.setTextSize(150);
+			paint.setARGB(255, (int) (incorrectTime * 255), 0, 0);
+			canvas.drawText("INCORRECT", 200, 200, paint);
+
+			incorrectTime -= 0.01f;
+		}
+
 	}
 
 	public void setCam(float degX, float degY) {
@@ -68,5 +80,9 @@ public class WordView extends SurfaceView {
 
 	public float getCamY() {
 		return camY;
+	}
+
+	public void setIncorrectTime(float incorrectTime) {
+		this.incorrectTime = incorrectTime;
 	}
 }
