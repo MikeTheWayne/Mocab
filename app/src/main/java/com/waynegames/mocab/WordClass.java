@@ -58,11 +58,43 @@ public class WordClass {
 
         Word[] returnWords = new Word[10];
 
+        // Generate positions
+        ArrayList<Position> positions = new ArrayList<Position>();
+
+        for(int i = 5; i < 355; i += 5) {
+            for(int j = 25; j < 130; j += 5) {
+                positions.add(new Position(i, j));
+            }
+        }
+
+        // Generate words
         for(int i = 0; i < 10; i++) {
             int position = random.nextInt(engWords.size());
-            returnWords[i] = new Word(engWords.get(position), foreignWords.get(position));
+            int engPos = random.nextInt(positions.size());
+            int trnPos;
+
+            // Avoid generating same number
+            do {
+                trnPos = random.nextInt(positions.size());
+            } while(trnPos == engPos);
+
+            returnWords[i] = new Word(engWords.get(position), foreignWords.get(position), positions.get(engPos).x, positions.get(engPos).y, positions.get(trnPos).x, positions.get(trnPos).y);
+
+            // Remove repeats
+            positions.remove(engPos);
+            positions.remove(trnPos);
         }
 
         return returnWords;
+    }
+
+    private class Position {
+        int x;
+        int y;
+
+        public Position(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
     }
 }

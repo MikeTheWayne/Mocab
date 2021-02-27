@@ -13,7 +13,7 @@ public class Word {
 	private boolean engSelect, trnSelect;
 	private boolean show;
 
-	public Word(String english, String translation) {
+	public Word(String english, String translation, int x1, int y1, int x2, int y2) {
 		this.english = english;
 		this.translation = translation;
 
@@ -21,21 +21,10 @@ public class Word {
 		this.trnSelect = false;
 		this.show = true;
 
-		this.generatePositions();
-	}
-
-	/**
-	 * Generates a random location for both words
-	 */
-	private void generatePositions() {
-
-		Random random = new Random();
-
-		engX = random.nextInt(360);
-		trnX = random.nextInt(360);
-		engY = random.nextInt(160) + 10;
-		trnY = random.nextInt(160) + 10;
-
+		this.engX = x1;
+		this.engY = y1;
+		this.trnX = x2;
+		this.trnY = y2;
 	}
 
 	public String getEnglish() {
