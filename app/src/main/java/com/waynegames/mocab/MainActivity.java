@@ -19,32 +19,8 @@ import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-
-	/** Check if this device has a camera */
-	private boolean checkCameraHardware(Context context) {
-		if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
-			// this device has a camera
-			return true;
-		} else {
-			// no camera on this device
-			return false;
-		}
-	}
-	/** A safe way to get an instance of the Camera object. */
-	public static Camera getCameraInstance(){
-		Camera c = null;
-		try {
-			c = android.hardware.Camera.open(); // attempt to get a Camera instance
-		}
-		catch (Exception e){
-			// Camera is not available (in use or does not exist)
-		}
-		return c; // returns null if camera is unavailable
-	}
-
-	private Camera mCamera;
-	private CameraPreview mPreview;
-
+	private Camera camera;
+	private CameraPreview preview;
 
 	private SensorManager sensorManager;
 	private Sensor rotationSensor;
@@ -58,21 +34,25 @@ public class MainActivity extends AppCompatActivity {
 
 		AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
-		Boolean hasPermission = (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-				== PackageManager.PERMISSION_GRANTED);
-		if (!hasPermission) {
+		// Camera permission check
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 11);
 		}
 
-		checkCameraHardware(this);
-		// Create an instance of Camera
-		mCamera = getCameraInstance();
+		// Setup camera background
+		if(checkCameraHardware(this)) {
 
-		// Create our Preview view and set it as the content of our activity.
-		mPreview = new CameraPreview(this, mCamera);
-		FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
-		preview.addView(mPreview);
+			// Create an instance of Camera
+			camera = getCameraInstance();
 
+			// Create our Preview view and set it as the content of our activity.
+			preview = new CameraPreview(this, camera);
+			FrameLayout frameLayout = findViewById(R.id.camera_preview);
+			frameLayout.addView(preview);
+
+		}
+
+		// Sensor setup
 		this.sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
 		this.sensorClass = new SensorClass();
@@ -92,6 +72,32 @@ public class MainActivity extends AppCompatActivity {
 		super.onPause();
 
 		this.sensorClass.stop();
+	}
+
+	/** Check if this device has a camera */
+	private boolean checkCameraHardware(Context context) {
+		if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
+			// This device has a camera
+			return true;
+		} else {
+			// No camera on this device
+			return false;
+		}
+	}
+
+	/** A safe way to get an instance of the Camera object. */
+	public static Camera getCameraInstance(){
+		Camera c = null;
+
+		try {
+			// Attempt to get a Camera instance
+			c = android.hardware.Camera.open();
+		} catch (Exception e){
+			// Camera is not available (in use or does not exist)
+		}
+
+		// Return null if camera is unavailable
+		return c;
 	}
 
 	class SensorClass implements SensorEventListener {

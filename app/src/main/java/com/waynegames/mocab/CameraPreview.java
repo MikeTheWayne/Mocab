@@ -11,23 +11,28 @@ import java.io.IOException;
 import static android.content.ContentValues.TAG;
 
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
+
     private SurfaceHolder surfaceHolder;
-    private Camera Camera;
+    private Camera camera;
 
     public CameraPreview(Context context, Camera camera) {
         super(context);
-        Camera = camera;
 
-        surfaceHolder = getHolder();
+        this.camera = camera;
+
+        surfaceHolder = this.getHolder();
         surfaceHolder.addCallback(this);
+
+        this.camera.setDisplayOrientation(90);
+
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
         try {
-            Camera.setPreviewDisplay(holder);
-            Camera.startPreview();
+            camera.setPreviewDisplay(holder);
+            camera.startPreview();
         } catch (IOException e) {
-            Log.d(TAG, "Setting camera preview Error! " + e.getMessage());
+            Log.d("Camera", "Setting camera preview Error! " + e.getMessage());
         }
     }
 
@@ -41,16 +46,14 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         }
 
         try {
-            Camera.stopPreview();
-        } catch (Exception e){
-        }
+            camera.stopPreview();
+        } catch (Exception e){ }
 
         try {
-            Camera.setPreviewDisplay(surfaceHolder);
-            Camera.startPreview();
-
+            camera.setPreviewDisplay(surfaceHolder);
+            camera.startPreview();
         } catch (Exception e){
-            Log.d(TAG, "Error starting camera preview: " + e.getMessage());
+            Log.d("Camera", "Error starting camera preview: " + e.getMessage());
         }
     }
 }
