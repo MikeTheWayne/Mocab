@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 	private WordView wordView;
 
 	private static Word[] words;
+	private WordClass wordClass;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 
 		AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+		// Read External Storage permission check
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 11);
+		}
 
 		// Camera permission check
 		if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -63,21 +69,11 @@ public class MainActivity extends AppCompatActivity {
 		this.sensorClass.start();
 
 		// Word generation
-		words = new Word[10];
-
-		// Default generation TODO: Replace with word generator call
-		for(int i = 0; i < 10; i++) {
-			words[i] = new Word("Hello", "Hola");
-		}
+		this.wordClass = new WordClass("English_Spanish_words.txt", "Spanish_word.txt", this);
+		words = this.wordClass.getTenWords();
 
 		// Word surfaceview
 		this.wordView = findViewById(R.id.word_view);
-
-
-		// Read External Storage permission check
-		if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 11);
-		}
 
 	}
 
