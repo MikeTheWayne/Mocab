@@ -23,6 +23,7 @@
         android:id="@+id/mocab_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
         android:text="Mocab"
         android:textColor="#FFFFFF"
         android:textSize="100sp"
