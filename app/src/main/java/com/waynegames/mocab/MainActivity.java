@@ -208,6 +208,9 @@ public class MainActivity extends AppCompatActivity {
 				} else{
 					// Incorrect
 					wordView.setIncorrectTime(1.0f);
+					System.out.println(w.getEnglish() + " " + w.getTranslation() + " " + compWord.getEnglish() + " " + compWord.getTranslation() + " " + compWord + " " + w);
+
+
 				}
 			}
 		}
