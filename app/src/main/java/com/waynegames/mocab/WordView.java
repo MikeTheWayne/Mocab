@@ -34,7 +34,7 @@ public class WordView extends SurfaceView {
 	public void onDraw(Canvas canvas) {
 
 		// Set word drawing style
-		paint.setTextSize(100);
+		paint.setTextSize(getHeight() / 19.2f);
 		paint.setARGB(255, 255, 255, 255);
 
 		// Draw words

@@ -31,6 +31,7 @@ public class FinishScreen extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(FinishScreen.this, MainMenu.class);
                 startActivity(intent);
+                finish();
             }
         });
 
