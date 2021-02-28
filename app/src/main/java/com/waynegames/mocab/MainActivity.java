@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
 	private TextView textView;
 
+	static String engFile = "English_Spanish_words.txt";
+	static String langFile = "Spanish_word.txt";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -85,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 		this.sensorClass.start();
 
 		// Word generation
-		this.wordClass = new WordClass("English_Spanish_words.txt", "Spanish_word.txt", this);
+		this.wordClass = new WordClass(engFile, langFile, this);
 		words = this.wordClass.getTenWords();
 
 		// Word surfaceview
