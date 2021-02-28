@@ -37,8 +37,8 @@ public class MainMenu extends AppCompatActivity {
         spanish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.engFile = "English_Spanish_words";
-                MainActivity.langFile = "Spanish_word";
+                MainActivity.engFile = "English_Spanish_words.txt";
+                MainActivity.langFile = "Spanish_word.txt";
             }
         });
 
