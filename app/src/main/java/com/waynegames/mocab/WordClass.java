@@ -60,8 +60,8 @@ public class WordClass {
         // Generate positions
         ArrayList<Position> positions = new ArrayList<Position>();
 
-        for(int i = 65; i < 295; i += 5) {
-            for(int j = -20; j < 80; j += 5) {
+        for(int i = 65; i < 295; i += 10) {
+            for(int j = -20; j < 80; j += 10) {
                 positions.add(new Position(i, j));
             }
         }
