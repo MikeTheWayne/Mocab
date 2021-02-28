@@ -79,7 +79,7 @@ public class FinishScreen extends AppCompatActivity {
                         super.run();
 
                         // Send data to server
-                        final String SERVER_ADDRESS = "192.168.0.12";
+                        final String SERVER_ADDRESS = "35.242.136.144";
                         final int SERVER_PORT = 40000;
 
                         Socket socket = null;
