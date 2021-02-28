@@ -59,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
 			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 11);
 		}
 
+		// Internet permission check
+		if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+			ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, 11);
+		}
+
 		// Setup camera background
 		if(checkCameraHardware(this)) {
 
